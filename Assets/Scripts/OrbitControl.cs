@@ -22,6 +22,6 @@ public class OrbitControl : MonoBehaviour
         float orbitPosition = StartOffset + orbitOffset * Mathf.PI * 2;
         float x = Constants.AstronomicalUnitScale * OrbitRadius * Mathf.Cos(orbitPosition);
         float z = Constants.AstronomicalUnitScale * OrbitRadius * Mathf.Sin(orbitPosition);
-        gameObject.transform.position = new Vector3(x, 0, z);
+        gameObject.transform.localPosition = new Vector3(x, 0, z);
     }
 }
