@@ -33,14 +33,15 @@ public class PlanetGenerator : MonoBehaviour
         for (int i = 0; i < CountPlanets; i++)
         {
             float RiRatio = SpaceMaths.GetPlanetRadiusByTitius_Bode(i);
-            float T = SpaceMaths.GetPeriodForPlanetFromOrbitRadius(RiRatio, 1f);
-
+            float R = Constants.UnityUnitConverter.FromAstronomicalUnits(RiRatio);
+            float T = SpaceMaths.YearsToSeconds(SpaceMaths.KeplerLawPeriod(RiRatio, 1f));
+            Debug.Log(T);
             GameObject planet = Instantiate(SpherePrefab);
             planet.name = "Planet " + (i + 1);
             OrbitControl control = planet.GetComponent<OrbitControl>();
-            CreateOrbitPoints(planet.GetComponent<LineRenderer>(), RiRatio * Constants.AstronomicalUnitScale);
+            CreateOrbitPoints(planet.GetComponent<LineRenderer>(), R);
             float phi_0 = Random.Range(0, Mathf.PI * 2);
-            PlanetData data = new PlanetData(RiRatio * Constants.AstronomicalUnitScale, T, phi_0);
+            PlanetData data = new PlanetData(R, T, phi_0);
             control.SetPlanetData(data);
         }
 

@@ -29,9 +29,13 @@ public class CameraSetupper : MonoBehaviour
         _camera = GetComponent<Camera>();
         if (_camera)
         {
+            minimumCameraDistance = Constants.UnityUnitConverter.FromAstronomicalUnits(1);
+            maximumCameraDistance = Constants.UnityUnitConverter.FromAstronomicalUnits(10);
+
             //distance = sqrt(x^2+x^2+x^2)
-            float cameraCoordinate = Constants.CameraDistanceFromCenter / Mathf.Sqrt(3);
-            _camera.transform.position = new Vector3(1, 1, -1) * cameraCoordinate / 3;
+            //На расстоянии 5 астрономических единиц
+            float cameraDistance = Constants.UnityUnitConverter.FromAstronomicalUnits(5);
+            _camera.transform.position = new Vector3(1, 1, -1) * cameraDistance / 3;
             _camera.transform.rotation = Quaternion.Euler(Constants.CameraIsometricAngle, -45, 0);
 
             var angles = transform.eulerAngles;
@@ -50,8 +54,8 @@ public class CameraSetupper : MonoBehaviour
     }
 
     private float _forwardCoefficient = 0f;
-    private float minimumCameraDistance = 0f;
-    private float maximumCameraDistance = 250f;
+    private float minimumCameraDistance;
+    private float maximumCameraDistance;
 
     void LateUpdate()
     {

@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityUnitConverters;
 
 public class Constants : MonoBehaviour
 {
+    public static UnityUnitAsBase UnityUnitConverter;
+
     public static float TimeScale = 1; //86400*365;
-    public static float AstronomicalUnitScale = 25f;
+    public static float ViewScale = 25f;
 
     public static float CurrentWorldRealTime;
 
@@ -17,6 +20,11 @@ public class Constants : MonoBehaviour
 
     public static float CameraDistanceFromCenter = 200f;
     public const float CameraIsometricAngle = 35.264f;
+
+    void Awake()
+    {
+        UnityUnitConverter = new UnityUnitAsAstronomicalUnitConverter();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,16 +36,16 @@ public class Constants : MonoBehaviour
     void Update()
     {
         CurrentWorldRealTime += Time.deltaTime * TimeScale;
-        long seconds = (long) CurrentWorldRealTime;
-        long minutes = seconds / 60;
-        long hours = minutes / 60;
-        long days = hours / 24;
-        long years = days / 365;
-        WorldRealtimeText.text = (years).ToString("00") + " лет, " +
-                                 (days % (365)).ToString("00") + " дней, " +
-                                 (hours % (24)).ToString("00") + " часов, " +
-                                 (minutes % (60)).ToString("00") + " минут, " +
-                                 (seconds % (60)).ToString("00") + " секунд";
+        int sec = (int) (CurrentWorldRealTime % 60);
+        int min = (int) (CurrentWorldRealTime / 60) % 60;
+        int hrs = (int) (CurrentWorldRealTime / 60 / 60) % 24;
+        int dys = (int) (CurrentWorldRealTime / 60 / 60 / 24) % 365;
+        int yrs = (int) (CurrentWorldRealTime / 60 / 60 / 24 / 365);
+        WorldRealtimeText.text = (yrs).ToString() + " лет, " +
+                                 (dys).ToString("000") + " дней, " +
+                                 (hrs).ToString("00") + " часов, " +
+                                 (min).ToString("00") + " минут, " +
+                                 (sec).ToString("00") + " секунд";
     }
 
     public void SetTimeScale(Slider slider)
