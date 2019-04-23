@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class OrbitControl : MonoBehaviour
 {
-    public float OrbitRadius = 1;
-    public float Period = 1;
-    public float StartOffset = 0f;
+    public PlanetData PlanetData;
 
     // Start is called before the first frame update
     void Start()
@@ -14,14 +12,19 @@ public class OrbitControl : MonoBehaviour
 
     }
 
+    public void SetPlanetData(PlanetData data)
+    {
+        PlanetData = data;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        float t = Constants.CurrentWorldRealTime % Period;
-        float orbitOffset = t / Period;
-        float orbitPosition = StartOffset + orbitOffset * Mathf.PI * 2;
-        float x = Constants.AstronomicalUnitScale * OrbitRadius * Mathf.Cos(orbitPosition);
-        float z = Constants.AstronomicalUnitScale * OrbitRadius * Mathf.Sin(orbitPosition);
+        float t = Constants.CurrentWorldRealTime % PlanetData.Period;
+        float orbitOffset = t / PlanetData.Period;
+        float orbitPosition = PlanetData.StartOffset + orbitOffset * Mathf.PI * 2;
+        float x = PlanetData.OrbitRadius * Mathf.Cos(orbitPosition);
+        float z = PlanetData.OrbitRadius * Mathf.Sin(orbitPosition);
         gameObject.transform.localPosition = new Vector3(x, 0, z);
     }
 }

@@ -10,7 +10,7 @@ class SpaceMaths
     /// <summary>
     /// Возвращает период обращения планеты по орбите планеты и отношением массы звезды к солнечной
     /// </summary>
-    /// <param name="orbitRadius">Радиус орбиты</param>
+    /// <param name="orbitRadius">Радиус орбиты по Тициусу-Боде</param>
     /// <param name="starToSunMassRatio">Отношение массы звезды к массе солнца</param>
     public static float GetPeriodForPlanetFromOrbitRadius(float orbitRadius, float starToSunMassRatio)
     {
@@ -19,7 +19,7 @@ class SpaceMaths
     }
 
     /// <summary>
-    /// Функция получает коэффициент радиуса орбиты планеты в зависимости от её индекса
+    /// Функция получает коэффициент радиуса орбиты планеты по Тициусу-Боде в зависимости от её индекса
     /// </summary>
     /// <param name="index">Индекс планеты в системе</param>
     public static float GetPlanetRadiusByTitius_Bode(int index)

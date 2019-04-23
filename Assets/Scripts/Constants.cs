@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Constants : MonoBehaviour
 {
     public static float TimeScale = 1; //86400*365;
-    public static float AstronomicalUnitScale = 5f;
+    public static float AstronomicalUnitScale = 25f;
 
     public static float CurrentWorldRealTime;
 
