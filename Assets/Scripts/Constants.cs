@@ -8,7 +8,7 @@ using UnityUnitConverters;
 
 public class Constants : MonoBehaviour
 {
-    public static UnityUnitAsBase UnityUnitConverter;
+    public static UnityUnitAsBase UnityUnitConverter = new UnityUnitAsAstronomicalUnitConverter();
 
     public static float TimeScale = 1; //86400*365;
     public static float ViewScale = 25f;
@@ -23,7 +23,7 @@ public class Constants : MonoBehaviour
 
     void Awake()
     {
-        UnityUnitConverter = new UnityUnitAsAstronomicalUnitConverter();
+
     }
 
     // Start is called before the first frame update
