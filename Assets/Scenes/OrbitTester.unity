@@ -546,6 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea7e760d1578b54b899f0bf861acf79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TimeScale: 1
   WorldRealtimeText: {fileID: 1872218132}
 --- !u!4 &625175418
 Transform:
@@ -720,7 +721,7 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 31536000
   m_WholeNumbers: 1
-  m_Value: 1
+  m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

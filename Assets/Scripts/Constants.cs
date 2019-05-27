@@ -10,10 +10,17 @@ public class Constants : MonoBehaviour
 {
     public static UnityUnitAsBase UnityUnitConverter = new UnityUnitAsAstronomicalUnitConverter();
 
-    public static float TimeScale = 1; //86400*365;
+    public float TimeScale = 1; //86400*365;
     public static float ViewScale = 25f;
 
-    public static float CurrentWorldRealTime;
+    private static double CurrentWorldRealTime_Inner;
+
+    public static double CurrentWorldRealTime
+    {
+        get { return CurrentWorldRealTime_Inner + TimeTemp; }
+    }
+
+    private static float TimeTemp;
 
     public TextMeshProUGUI WorldRealtimeText;
 
@@ -23,19 +30,26 @@ public class Constants : MonoBehaviour
 
     void Awake()
     {
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        CurrentWorldRealTime = 0f;
+        CurrentWorldRealTime_Inner = 20 * 86400*365;
+        TimeTemp = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CurrentWorldRealTime += Time.deltaTime * TimeScale;
+        TimeTemp += Time.deltaTime * TimeScale;
+
+        if (TimeTemp > 10f)
+        {
+            CurrentWorldRealTime_Inner += TimeTemp;
+            TimeTemp = 0f;
+        }
+
         int sec = (int) (CurrentWorldRealTime % 60);
         int min = (int) (CurrentWorldRealTime / 60) % 60;
         int hrs = (int) (CurrentWorldRealTime / 60 / 60) % 24;
@@ -50,6 +64,13 @@ public class Constants : MonoBehaviour
 
     public void SetTimeScale(Slider slider)
     {
-        TimeScale = slider.value;
+        if (Math.Abs(slider.value) < 0.0000001f)
+        {
+            TimeScale = 1.1f;
+        }
+        else
+        {
+            TimeScale = slider.normalizedValue * 86400 * 365;
+        }
     }
 }
